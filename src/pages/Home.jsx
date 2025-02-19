@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 
 import DetailedButton from '../components/DetailedButton';
+import Navbar from '../components/Navbar';
 
 const Home = () => {
   const [pageState, setPageState] = useState('hello');
@@ -13,7 +14,7 @@ const Home = () => {
     return (
       <div className='section-container flex-centered'>
         <h1 className='pb'>Welcome to LLMojis</h1>
-        <p>Play around the meaning of emojis comnbinations</p>
+        <p className='body1'>Play around the meaning of emojis comnbinations</p>
         <button className='text-button fly-hover' onClick={chooseGameMode}>
           Get Started
         </button>
@@ -22,6 +23,7 @@ const Home = () => {
   else
     return (
       <div className='section-container flex-centered'>
+        <Navbar pageName='Game Mode' />
         <h1 className='pb'>Choose a game mode</h1>
         <div className='flex flex-row gap-8'>
           <DetailedButton
