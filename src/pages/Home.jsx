@@ -12,7 +12,7 @@ const Home = () => {
 
   if (pageState === 'hello')
     return (
-      <div className='section-container flex-centered'>
+      <div className='h-screen section-container flex-centered'>
         <h1 className='pb'>Welcome to LLMojis</h1>
         <p className='body1'>Play around the meaning of emojis comnbinations</p>
         <button className='text-button fly-hover' onClick={chooseGameMode}>
@@ -22,7 +22,7 @@ const Home = () => {
     );
   else
     return (
-      <div className='section-container flex-centered'>
+      <div className='h-screen section-container flex-centered'>
         <Navbar pageName='Game Mode' />
         <h1 className='pb'>Choose a game mode</h1>
         <div className='flex flex-row gap-8'>
