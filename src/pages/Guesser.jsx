@@ -1,51 +1,78 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import Navbar from '../components/Navbar';
 import SubmitField from '../components/SubmitField';
 
 const Guesser = () => {
-  const [emojis, setEmojis] = useState([]);
+  const [emojis, setEmojis] = useState('');
   const [input, setInput] = useState('');
-  const [response, setResponse] = useState(null);
+  const [triedWords, setTriedWords] = useState([]);
+  const [success, setSuccess] = useState([]);
 
+  // Fetch initial set of emojis when the component loads
   useEffect(() => {
-    // Fetch initial set of emojis when the component loads
-    axios
+    /* axios
       .get('https://api.example.com/emojis')
       .then((res) => {
-        setEmojis(res.data);
+        setEmojis(res.data.emojis);
       })
       .catch((err) => {
         console.error(err);
-      });
+      }); */
+
+    setEmojis('🦇🃏🏙️🚔');
   }, []);
 
+  // Trigger API call when user submits a word
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Trigger API call when user submits a word
-    axios
-      .post('https://api.example.com/submit', { word: input })
+
+    const sanintizedInput = input.trim();
+    if (
+      !sanintizedInput ||
+      !sanintizedInput.length ||
+      triedWords.includes(sanintizedInput)
+    )
+      return;
+
+    if (sanintizedInput === 'batman') {
+      setSuccess(true);
+      setTriedWords([...triedWords, '🎉 ' + sanintizedInput + ' 🎉']);
+    } else {
+      setTriedWords([...triedWords, sanintizedInput]);
+    }
+    setInput('');
+    /* axios
+      .post('https://api.example.com/submit', {
+        word: input,
+        count: triedWords.length - 1,
+      })
       .then((res) => {
-        setResponse(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
         console.error(err);
-      });
+      }); */
   };
 
   return (
-    <div className='section-container flex-centered w-full'>
+    <>
       <Navbar pageName='Guesser' />
-      <div>
-        {emojis.map((emoji, index) => (
-          <span key={index} style={{ fontSize: '2rem', margin: '0.5rem' }}>
-            {emoji}
-          </span>
-        ))}
+      <div className='pt-[35vh] flex-centered !justify-start w-full min-h-screen'>
+        <h1 className='!text-6xl pb-14'>{emojis}</h1>
+        <div className='w-full px-8 flex-centered'>
+          <SubmitField
+            handleSubmit={handleSubmit}
+            onChange={setInput}
+            inputValue={input}
+          />
+        </div>
+        <div className='mt-4 min-w-[200px] flex flex-col-reverse items-center gap-1 text-gray-500'>
+          {triedWords.map((word, index) => (
+            <p key={index}>{word}</p>
+          ))}
+        </div>
       </div>
-      <SubmitField handleSubmit={handleSubmit} onChange={setInput} />
-      {response && <div>{response.message}</div>}
-    </div>
+    </>
   );
 };
 
