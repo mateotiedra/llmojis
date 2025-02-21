@@ -64,6 +64,7 @@ const Guesser = () => {
             handleSubmit={handleSubmit}
             onChange={setInput}
             inputValue={input}
+            placeholder='Guess the concept'
           />
         </div>
         <div className='mt-4 min-w-[200px] flex flex-col-reverse items-center gap-1 text-gray-500'>
