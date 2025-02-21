@@ -36,6 +36,7 @@ const Home = () => {
             emoji='🔍'
             title='Concepter'
             description='Challenge the computer to guess by providing a set of emojis'
+            to='concepter'
           />
         </div>
       </div>
